@@ -41,14 +41,17 @@ class Startup
     end
 
     def total_funds
+    #Returns the total sum of investments that the startup has gotten
         num_funding_rounds.map {|funding| funding.investment}.sum
     end
 
     def investors
+    #Returns a **unique** array of all the venture capitalists that have invested in this company
         num_funding_rounds.map {|investment| investment.venture_capitalist}.uniq
     end
 
-    def big_investors 
+    def big_investors
+    #Returns a **unique** array of all the venture capitalists that have invested in this company and are in the Trés Commas club
         self.investors.select{|name| VentureCapitalist.tres_commas_club.include?(name)}
     end
 

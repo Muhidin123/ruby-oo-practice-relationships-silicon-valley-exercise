@@ -25,11 +25,13 @@ class VentureCapitalist
     end
 
     def funding_rounds
+    #returns an array of all funding rounds for that venture capitalist
         FundingRound.all.select {|all_inv| all_inv.venture_capitalist == self}
     end
 
     def portfolio
-        FundingRound.all.select {|rounds| rounds.venture_capitalist == self}.uniq
+    #Returns a **unique** list of all startups this venture capitalist has funded
+        FundingRound.all.select {|rounds| rounds.venture_capitalist == self}.map {|investment| investment.startup}.uniq
     end
     
     def biggest_investment
@@ -42,11 +44,5 @@ class VentureCapitalist
     #given a **domain string**, returns the total amount invested in that domain
         funding_rounds.select {|investment| investment.startup.domain == domain_name}.map {|funds| funds.investment}.sum
     end
-
-
-
-
-
-
 
 end
